@@ -41,21 +41,11 @@ RUN \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/google-ads-python.git#egg=google-ads" && \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/dbt-mysql.git#egg=dbt-mysql" && \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/dbt-synapse.git#egg=dbt-synapse" && \
-  if [ -z "$FEATURE_BRANCH" ] || [ "$FEATURE_BRANCH" = "null" ]; then \
-    pip3 install --no-cache-dir "git+https://github.com/mage-ai/mage-ai.git#egg=mage-integrations&subdirectory=mage_integrations"; \
-  else \
-    pip3 install --no-cache-dir "git+https://github.com/mage-ai/mage-ai.git@$FEATURE_BRANCH#egg=mage-integrations&subdirectory=mage_integrations"; \
-  fi
+  pip3 install --no-cache-dir "git+https://github.com/bunker-tech/mage-ai.git@$FEATURE_BRANCH#egg=mage-integrations&subdirectory=mage_integrations"
 
 # Mage
 COPY ./mage_ai/server/constants.py /tmp/constants.py
-RUN if [ -z "$FEATURE_BRANCH" ] || [ "$FEATURE_BRANCH" = "null" ] ; then \
-      tag=$(tail -n 1 /tmp/constants.py) && \
-      VERSION=$(echo "$tag" | tr -d "'") && \
-      pip3 install --no-cache-dir "mage-ai[all]==$VERSION"; \
-    else \
-      pip3 install --no-cache-dir "git+https://github.com/mage-ai/mage-ai.git@$FEATURE_BRANCH#egg=mage-ai[all]"; \
-    fi
+RUN pip3 install --no-cache-dir "git+https://github.com/bunker-tech/mage-ai.git@$FEATURE_BRANCH#egg=mage-ai[all]"
 
 
 ## Startup Script
