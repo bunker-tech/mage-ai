@@ -1,5 +1,6 @@
 FROM python:3.10-bookworm
 LABEL description="Deploy Mage on ECS"
+ARG FEATURE_BRANCH
 USER root
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -35,18 +36,17 @@ RUN \
 # Mage integrations and other related packages
 RUN \
   pip3 install --no-cache-dir "git+https://github.com/wbond/oscrypto.git@d5f3437ed24257895ae1edd9e503cfb352e635a8" && \
+  pip3 install --no-cache-dir "git+https://github.com/dremio-hub/arrow-flight-client-examples.git#egg=dremio-flight&subdirectory=python/dremio-flight" && \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/singer-python.git#egg=singer-python" && \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/google-ads-python.git#egg=google-ads" && \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/dbt-mysql.git#egg=dbt-mysql" && \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/dbt-synapse.git#egg=dbt-synapse" && \
-  pip3 install --no-cache-dir "git+https://github.com/mage-ai/mage-ai.git#egg=mage-integrations&subdirectory=mage_integrations"
+  pip3 install --no-cache-dir "git+https://github.com/bunker-tech/mage-ai.git@$FEATURE_BRANCH#egg=mage-integrations&subdirectory=mage_integrations"
+
 # Mage
 COPY ./mage_ai/server/constants.py /tmp/constants.py
-RUN \
-  tag=$(tail -n 1 /tmp/constants.py) && \
-  VERSION=$(echo "$tag" | tr -d "'") && \
-  pip3 install --no-cache-dir "mage-ai[all]==$VERSION" && \
-  rm /tmp/constants.py
+RUN pip3 install --no-cache-dir "git+https://github.com/bunker-tech/mage-ai.git@$FEATURE_BRANCH#egg=mage-ai[all]"
+
 
 ## Startup Script
 COPY --chmod=+x ./scripts/install_other_dependencies.py ./scripts/run_app.sh /app/
