@@ -7,9 +7,6 @@ from typing import Any, Dict, List
 import numpy as np
 import pandas as pd
 import polars as pl
-from pandas.api.types import is_object_dtype
-from pandas.core.indexes.range import RangeIndex
-
 from mage_ai.data_cleaner.shared.utils import is_geo_dataframe, is_spark_dataframe
 from mage_ai.data_preparation.models.constants import (
     DATAFRAME_ANALYSIS_KEYS,
@@ -30,6 +27,8 @@ from mage_ai.data_preparation.storage.base_storage import BaseStorage
 from mage_ai.data_preparation.storage.local_storage import LocalStorage
 from mage_ai.shared.parsers import sample_output
 from mage_ai.shared.utils import clean_name
+from pandas.api.types import is_object_dtype
+from pandas.core.indexes.range import RangeIndex
 
 DATAFRAME_COLUMN_TYPES_FILE = 'data_column_types.json'
 DATAFRAME_PARQUET_FILE = 'data.parquet'
@@ -629,4 +628,6 @@ class Variable:
         """
         self.storage.makedirs(self.variable_path, exist_ok=True)
         for k in DATAFRAME_ANALYSIS_KEYS:
-            self.storage.write_json_file(os.path.join(self.variable_path, f'{k}.json'), data.get(k))
+            write_path = os.path.join(self.variable_path, f'{k}.json')
+            print(f'writing to [{write_path}] ...')
+            self.storage.write_json_file(write_path, data.get(k))
