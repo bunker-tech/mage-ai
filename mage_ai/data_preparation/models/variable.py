@@ -626,8 +626,10 @@ class Variable:
         3. insights.json
         4. suggestions.json
         """
-        self.storage.makedirs(self.variable_path, exist_ok=True)
-        for k in DATAFRAME_ANALYSIS_KEYS:
-            write_path = os.path.join(self.variable_path, f'{k}.json')
-            print(f'writing to [{write_path}] ...')
-            self.storage.write_json_file(write_path, data.get(k))
+        # self.storage.makedirs(self.variable_path, exist_ok=True)
+        # for k in DATAFRAME_ANALYSIS_KEYS:
+        #     write_path = os.path.join(self.variable_path, f'{k}.json')
+        #     print(f'writing to [{write_path}] ...')
+        #     self.storage.write_json_file(write_path, data.get(k))
+
+        pass # NOTE: This is turned off in an attempt to hotfix Stale File Handle error!
