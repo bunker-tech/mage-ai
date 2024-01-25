@@ -239,7 +239,8 @@ class Variable:
         elif self.variable_type == VariableType.GEO_DATAFRAME:
             self.__write_geo_dataframe(data)
         elif self.variable_type == VariableType.DATAFRAME_ANALYSIS:
-            self.__write_dataframe_analysis(data)
+            # self.__write_dataframe_analysis(data)
+            pass
         else:
             self.__write_json(data)
 
@@ -268,7 +269,8 @@ class Variable:
         elif self.variable_type == VariableType.GEO_DATAFRAME:
             self.__write_geo_dataframe(data)
         elif self.variable_type == VariableType.DATAFRAME_ANALYSIS:
-            self.__write_dataframe_analysis(data)
+            # self.__write_dataframe_analysis(data)
+            pass
         else:
             await self.__write_json_async(data)
 
