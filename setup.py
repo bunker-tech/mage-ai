@@ -54,7 +54,7 @@ setuptools.setup(
         ],
         'bigquery': [
             'google-cloud-bigquery~=3.0',
-            'db-dtypes==1.0.5',
+            'db-dtypes==1.1.1',
         ],
         'clickhouse': [
             'clickhouse-connect==0.5.20',
@@ -123,7 +123,7 @@ setuptools.setup(
             'botocore==1.29.60',
             'clickhouse-connect==0.5.20',
             'confluent-avro',
-            'db-dtypes==1.0.5',
+            'db-dtypes==1.1.1',
             'dbt-bigquery==1.4.3',
             'dbt-core==1.4.8',
             'dbt-duckdb==1.4.2',
