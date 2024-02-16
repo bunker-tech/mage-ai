@@ -122,6 +122,15 @@ class BlockRunResource(DatabaseResource):
                 filter(c.pipeline_uuid == pipeline_uuid)
             )
 
+        status_arg = query_arg.get('status', [None])
+        if status_arg:
+            status_arg = status_arg[0]
+        if status_arg:
+            query = (
+                query.
+                filter(a.status == status_arg)
+            )
+
         # The order_by value should be an attribute on the BlockRun model.
         order_by_arg = query_arg.get('order_by', [None])
         if order_by_arg:

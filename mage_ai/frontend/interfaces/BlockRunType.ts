@@ -14,6 +14,7 @@ export interface BlockRunReqQueryParamsType {
   order_by?: string;
   pipeline_run_id?: number;
   pipeline_uuid?: string;
+  status?: RunStatus;
 }
 
 export default interface BlockRunType {

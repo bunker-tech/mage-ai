@@ -33,7 +33,7 @@ import buildTableSidekick, {
 } from '@components/PipelineDetail/BlockRuns/buildTableSidekick';
 import { PageNameEnum } from '@components/PipelineDetailPage/constants';
 import { PADDING_UNITS } from '@oracle/styles/units/spacing';
-import { SortDirectionEnum, SortQueryEnum } from '@components/shared/Table/constants';
+import { FilterQueryEnum, SortDirectionEnum, SortQueryEnum } from '@components/shared/Table/constants';
 import { TabType } from '@oracle/components/Tabs/ButtonTabs';
 import { datetimeInLocalTimezone } from '@utils/date';
 import { onSuccess } from '@api/utils/response';
@@ -105,10 +105,14 @@ function PipelineBlockRuns({
   };
   const sortColumnIndexQuery = q?.[SortQueryEnum.SORT_COL_IDX];
   const sortDirectionQuery = q?.[SortQueryEnum.SORT_DIRECTION];
+  const filterStatusQuery = q?.[FilterQueryEnum.STATUS];
   if (sortColumnIndexQuery) {
     const blockRunSortColumn = COL_IDX_TO_BLOCK_RUN_ATTR_MAPPING[sortColumnIndexQuery];
     const sortDirection = sortDirectionQuery || SortDirectionEnum.ASC;
     blockRunsRequestQuery.order_by = `${blockRunSortColumn}%20${sortDirection}`;
+  }
+  if (filterStatusQuery) {
+    blockRunsRequestQuery.status = filterStatusQuery;
   }
   const { data: dataBlockRuns, mutate: fetchBlockRuns } = api.block_runs.list(
     blockRunsRequestQuery,

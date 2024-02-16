@@ -17,6 +17,10 @@ export enum SortQueryEnum {
   SORT_DIRECTION = 'sort_direction',
 }
 
+export enum FilterQueryEnum {
+  STATUS = 'status',
+}
+
 export const TIMEZONE_TOOLTIP_PROPS = {
   fitTooltipContentWidth: true,
   tooltipMessage: `Timezone: ${LOCAL_TIMEZONE}`,
