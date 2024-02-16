@@ -38,6 +38,7 @@ BlockRunPolicy.allow_query([
     'order_by',
     'pipeline_run_id',
     'pipeline_uuid',
+    'status'
 ], scopes=[
     OauthScope.CLIENT_PRIVATE,
 ], condition=lambda policy: policy.has_at_least_viewer_role())
