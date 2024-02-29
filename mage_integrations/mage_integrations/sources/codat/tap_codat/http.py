@@ -4,7 +4,14 @@ import singer
 from singer import metrics
 import backoff
 
-LOGGER = singer.get_logger()
+from mage_integrations.utils.logger import Logger
+
+LOGGER = Logger(
+    caller='tap_codat',
+    log_to_stdout=False,
+    logger=singer.get_logger(),
+    verbose=True,
+)
 BASE_URL = "https://api.codat.io"
 
 
@@ -62,13 +69,13 @@ class Client(object):
         elif response.status_code == 409:
             # caused by broken connection on codat's side
             log_msg = f"failed to fetch due to {response.status_code} status code"
-            LOGGER.warning(log_msg)
+            LOGGER.error(log_msg)
             log["msg"] = log_msg
             self.logs.append(log)            
             return None           
         elif response.status_code == 404:
             log_msg = f"failed to fetch due to {response.status_code} status code"
-            LOGGER.warning(log_msg)
+            LOGGER.error(log_msg)
             self.logs.append(log)
             return None
         response.raise_for_status()

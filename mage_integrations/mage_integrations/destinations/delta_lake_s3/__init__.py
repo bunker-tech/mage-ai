@@ -11,6 +11,15 @@ from mage_integrations.destinations.delta_lake.constants import MODE_OVERWRITE
 from mage_integrations.destinations.delta_lake_s3.utils import (
     fix_overwritten_partitions,
 )
+from mage_integrations.utils.logger import Logger
+import singer
+
+LOGGER = Logger(
+    caller='delta_lake_s3',
+    log_to_stdout=False,
+    logger=singer.get_logger(),
+    verbose=True,
+)
 
 
 class DeltaLakeS3(BaseDeltaLake):
@@ -90,11 +99,16 @@ class DeltaLakeS3(BaseDeltaLake):
         }
 
     def build_table_uri(self, stream: str) -> str:
-        return posixpath.join([
+        LOGGER.info([
             f"s3://{self.config['bucket']}",
             self.config['object_key_path'],
             self.table_name,
         ])
+        return posixpath.join(
+            f"s3://{self.config['bucket']}",
+            self.config['object_key_path'],
+            self.table_name,
+        )
 
     def build_client(self):
         config = Config(
