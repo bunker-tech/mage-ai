@@ -3,8 +3,9 @@ from singer import metrics
 from singer.transform import transform as tform
 from .transform import transform_dts
 import json
+from typing import Generator, List, Dict
 
-from tap_codat.state import incorporate, save_state, \
+from mage_integrations.sources.codat.tap_codat.state import incorporate, save_state, \
     get_last_record_value_for_table
 
 from contextlib import ContextDecorator
@@ -130,7 +131,9 @@ class Stream(object):
         transformed = transform_dts(records, ctx.schema_dt_paths[self.tap_stream_id])
         self.log_additional_properties(ctx, transformed)
         return transformed
-
+    
+    def load_data(self, ctx) -> Generator[List[Dict], None, None]:
+        raise NotImplementedError("load_data")
 
 class Companies(Stream):
     def raw_fetch(self, ctx):
@@ -165,6 +168,20 @@ class Basic(Stream):
             ))
 
             self.sync_for_company(ctx, company)
+
+    def load_data(self, ctx):# -> Any:
+        company = ctx.cache["companies"][0]
+        sync = capture_state(
+            ctx,
+            self.tap_stream_id,
+            self.state_filter,
+            company['id']
+        )
+        path = self.path.format(companyId=company["id"])
+        params = self.get_params(ctx, sync)
+        resp = ctx.client.GET({"path": path, "params": params}, self.tap_stream_id)
+        records: List[Dict] = self.transform_dts(ctx, self.format_response(resp, company))
+        yield records
 
     def sync_for_company(self, ctx, company):
         with capture_state(
@@ -275,6 +292,22 @@ class Events(Basic):
 
 
 class Paginated(Basic):
+    def load_data(self, ctx):
+        LOGGER.info(ctx.selected_stream_ids)
+        LOGGER.info(ctx.schema_dt_paths)
+        company = ctx.cache["companies"][0]
+        sync = capture_state(
+            ctx,
+            self.tap_stream_id,
+            self.state_filter,
+            company['id']
+        )
+        path = self.path.format(companyId=company["id"])
+        params = self.get_params(ctx, sync, 1)
+        resp = ctx.client.GET({"path": path, "params": params}, self.tap_stream_id)
+        records = self.transform_dts(ctx, self.format_response(resp, company))
+        yield records
+
     def sync_for_company(self, ctx, company):
         with capture_state(
             ctx,
@@ -409,7 +442,6 @@ company = CompanyInfo("company_info",
           "/companies/{companyId}/data/info",
           returns_collection=False)
 all_streams = [
-    companies,
     Paginated("accounts",
           ["id", "companyId"],
           "/companies/{companyId}/data/accounts",
