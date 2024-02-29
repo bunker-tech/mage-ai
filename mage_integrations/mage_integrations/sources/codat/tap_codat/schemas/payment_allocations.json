@@ -1,0 +1,42 @@
+{
+  "type": [
+    "null",
+    "object"
+  ],
+  "properties": {
+   "companyId": {
+     "type": "string"
+   },
+    "id": {
+      "type": [
+        "string"
+      ]
+    },
+    "date": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "currency": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "totalAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "note": {
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

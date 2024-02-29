@@ -47,4 +47,5 @@ SOURCES = sorted([
     dict(name='Tableau'),
     dict(name='Twitter Ads'),
     dict(name='Zendesk'),
+    dict(name='Codat')
 ] + SQL_SOURCES, key=lambda x: x['name'])
