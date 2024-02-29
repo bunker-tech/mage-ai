@@ -5,11 +5,18 @@ import singer
 from singer import utils, metadata
 from singer.catalog import Schema
 from mage_integrations.sources.catalog import Catalog, CatalogEntry
-from . import streams as streams_
-from .context import Context
+from mage_integrations.sources.codat.tap_codat import streams as streams_
+from mage_integrations.sources.codat.tap_codat.context import Context
+from mage_integrations.utils.logger import Logger
+from mage_integrations.sources.messages import write_schema
 
 REQUIRED_CONFIG_KEYS = ["start_date", "api_key"]
-LOGGER = singer.get_logger()
+LOGGER = Logger(
+    caller='tap_codat',
+    log_to_stdout=False,
+    logger=singer.get_logger(),
+    verbose=True,
+)
 
 
 def get_abs_path(path):
@@ -29,7 +36,7 @@ def load_schema(ctx, tap_stream_id):
 
 
 def load_and_write_schema(ctx, stream):
-    singer.write_schema(
+    write_schema(
         stream.tap_stream_id,
         load_schema(ctx, stream.tap_stream_id),
         stream.pk_fields,
@@ -95,7 +102,6 @@ def main_impl():
     ctx = Context(args.config, args.state)
     if args.discover:
         discover(ctx).dump()
-        print()
     else:
         ctx.catalog = Catalog.from_dict(args.properties) \
             if args.properties else discover(ctx)
@@ -107,7 +113,7 @@ def main():
     try:
         main_impl()
     except Exception as exc:
-        LOGGER.critical(exc)
+        LOGGER.error(exc)
         raise
 
 if __name__ == "__main__":
