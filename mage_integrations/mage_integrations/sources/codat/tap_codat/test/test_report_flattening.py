@@ -1,4 +1,4 @@
-from tap_codat.streams import flatten_report
+from mage_integrations.sources.codat.tap_codat.streams import flatten_report
 
 sample_assets = \
 {
