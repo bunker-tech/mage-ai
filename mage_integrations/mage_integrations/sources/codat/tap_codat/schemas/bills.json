@@ -1,0 +1,147 @@
+{
+  "type": [
+    "object"
+  ],
+  "properties": {
+    "companyId": {
+      "type": [
+        "string"
+      ]
+    },
+    "reference": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "totalAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "amountDue": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "currency": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "status": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "supplierRef": {
+      "$ref": "suppliers"
+    },
+    "issueDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "id": {
+      "type": [
+        "string"
+      ]
+    },
+    "subTotal": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "dueDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "taxAmount": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "lineItems": {
+        "type": ["null", "array"],
+        "items": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": ["null", "string"]
+                },
+                "unitAmount": {
+                    "type": ["null", "number"]
+                },
+                "quantity": {
+                    "type": ["null", "number"]
+                },
+                "discountAmount": {
+                    "type": ["null", "number"]
+                },
+                "subTotal": {
+                    "type": ["null", "number"]
+                },
+                "taxAmount": {
+                    "type": ["null", "number"]
+                },
+                "totalAmount": {
+                    "type": ["null", "number"]
+                },
+                "accountRef": {
+                    "type": ["null", "object"],
+                    "properties": {
+                        "id": {
+                            "type": ["null", "string"]
+                        },
+                        "name": {
+                            "type": ["null", "string"]
+                        }
+                    }
+                },
+                "discountPercentage": {
+                    "type": ["null", "number"]
+                },
+                "taxRateRef": {
+                    "type": ["null", "object"],
+                    "properties": {
+                        "id": {
+                            "type": ["null", "string"]
+                        },
+                        "name": {
+                            "type": ["null", "string"]
+                        }
+                    }
+                },
+                "itemRef": {
+                    "type": ["null", "object"],
+                    "properties": {
+                        "id": {
+                            "type": ["null", "string"]
+                        },
+                        "name": {
+                            "type": ["null", "string"]
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+  },
+  "additionalProperties": true,
+  "tap_schema_dependencies": [
+    "suppliers"
+  ]
+}
