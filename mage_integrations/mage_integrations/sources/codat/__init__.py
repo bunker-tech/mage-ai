@@ -3,16 +3,14 @@ from mage_integrations.sources.catalog import Catalog
 from mage_integrations.sources.codat.tap_codat import discover, check_credentials_are_authorized, load_and_write_schema
 from mage_integrations.sources.codat.tap_codat.context import Context
 from mage_integrations.sources.codat.tap_codat import streams as streams_
-from typing import List, Dict
+
+from typing import List, Dict, Generator
 from datetime import datetime
 
 class Codat(Source):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ctx = Context(self.config, self.state)
-
-    def _load_company_from_config(self):
-        self.ctx.cache["companies"] = self.ctx.config["company"]
 
     def discover(self, streams: List[str] = None) -> Catalog:
         return discover(self.ctx)
@@ -25,9 +23,15 @@ class Codat(Source):
         sample_data: bool = False,
         start_date: datetime = None,
         **kwargs,
-    ):
-        pass
+    ) -> Generator[List[Dict], None, None]:
+        self.ctx.catalog = self.catalog or self.discover(streams=self.selected_streams)
+        if query is None:
+            query = {}
+        streams_.company.fetch_into_cache(self.ctx)
+        tap_stream_id = stream.tap_stream_id
+        stream_obj:streams_.Stream = next(stream for stream in streams_.all_streams if stream.tap_stream_id == tap_stream_id)
 
+        return stream_obj.load_data(self.ctx)
 
     def sync(self, catalog: Catalog) -> None:
         self.ctx.catalog = catalog
@@ -35,7 +39,6 @@ class Codat(Source):
         streams = [s for s in streams_.all_streams
                 if s.tap_stream_id in self.ctx.selected_stream_ids]
         for stream in streams:
-            self.ctx.write_state()
             load_and_write_schema(self.ctx, stream)
             stream.sync(self.ctx)
         self.ctx.write_state()
