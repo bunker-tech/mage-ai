@@ -3,8 +3,14 @@ import singer
 
 from dateutil.parser import parse
 
-LOGGER = singer.get_logger()
+from mage_integrations.utils.logger import Logger
 
+LOGGER = Logger(
+    caller='tap_codat',
+    log_to_stdout=False,
+    logger=singer.get_logger(),
+    verbose=True,
+)
 
 def get_last_record_value_for_table(state, table):
     if state is None:
@@ -61,5 +67,5 @@ def load_state(filename):
         with open(filename) as handle:
             return json.load(handle)
     except:
-        LOGGER.fatal("Failed to decode state file. Is it valid json?")
+        LOGGER.error("Failed to decode state file. Is it valid json?")
         raise RuntimeError
