@@ -8,12 +8,6 @@
         "string"
       ]
     },
-    "registrationNumber": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
     "createdDate": {
       "type": [
         "null",
@@ -164,12 +158,6 @@
     },
     "companyId": {
       "type": [
-        "string"
-      ]
-    },
-    "taxNumber": {
-      "type": [
-        "null",
         "string"
       ]
     }
