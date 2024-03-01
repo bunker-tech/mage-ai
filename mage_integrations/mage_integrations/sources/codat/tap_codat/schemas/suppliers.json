@@ -28,12 +28,6 @@
         "string"
       ]
     },
-    "registrationNumber": {
-      "type": [
-        "null",
-        "string"
-      ]
-    },
     "supplierName": {
       "type": [
         "null",
@@ -106,12 +100,6 @@
       "type": [
         "null",
         "array"
-      ]
-    },
-    "taxNumber": {
-      "type": [
-        "null",
-        "string"
       ]
     },
     "status": {
