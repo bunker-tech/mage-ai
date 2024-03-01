@@ -38,9 +38,6 @@
         },
         "modifiedDate": {
             "type": ["null", "string"]
-        },
-        "sourceModifiedDate": {
-            "type": ["null", "string"]
         }
     }
 }
