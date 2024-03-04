@@ -2,54 +2,116 @@
     "type": "object",
     "properties": {
         "companyId": {
-          "type": "string"
+            "type": "string"
         },
         "id": {
             "type": "string"
         },
         "postedOn": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "createdOn": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "modifiedDate": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "sourceModifiedDate": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "recordRef": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "properties": {
+                "id": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "dataType": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
         },
         "journalLines": {
-            "type": ["null", "array"],
+            "type": [
+                "null",
+                "array"
+            ],
             "items": {
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": ["null", "string"]
+                        "type": [
+                            "null",
+                            "string"
+                        ]
                     },
                     "description": {
-                        "type": ["null", "string"]
+                        "type": [
+                            "null",
+                            "string"
+                        ]
                     },
                     "grossAmount": {
-                        "type": ["null", "number"]
+                        "type": [
+                            "null",
+                            "number"
+                        ]
                     },
                     "netAmount": {
-                        "type": ["null", "number"]
+                        "type": [
+                            "null",
+                            "number"
+                        ]
                     },
                     "taxAmount": {
-                        "type": ["null", "number"]
+                        "type": [
+                            "null",
+                            "number"
+                        ]
                     },
                     "currency": {
-                        "type": ["null", "string"]
+                        "type": [
+                            "null",
+                            "string"
+                        ]
                     },
                     "accountRef": {
-                        "type": ["null", "object"],
+                        "type": [
+                            "null",
+                            "object"
+                        ],
                         "properties": {
                             "id": {
-                                "type": ["null", "string"]
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
                             },
                             "name": {
-                                "type": ["null", "string"]
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
                             }
                         }
                     }
