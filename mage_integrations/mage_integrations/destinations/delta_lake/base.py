@@ -1,11 +1,10 @@
 import argparse
 import sys
-from typing import Dict, List
+from typing import Dict, List, Any
 
 import pandas as pd
 import pyarrow as pa
 from deltalake.writer import try_get_deltatable
-
 from mage_integrations.destinations.base import Destination as BaseDestination
 from mage_integrations.destinations.constants import (
     COLUMN_FORMAT_DATETIME,
@@ -43,70 +42,93 @@ class DeltaLake(BaseDestination):
 
     def build_client(self):
         raise Exception('Subclasses must implement the build_client method.')
+    
+    def get_schema_from_array(self, items: dict, level: int = 0):
+        """Returns schema for an array.
 
-    def build_schema(self, stream: str, df: 'pd.DataFrame'):
-        number_of_rows = len(df.index)
+        :param items: items definition of array
+        :type items: dict
+        :param level: depth level of array in jsonschema
+        :type level: int
+        :return: detected fields for items in array.
+        :rtype: pyarrow datatype
+        """
+        type:List[Any] = items.get("type")
+        # if there's anyOf instead of single type
+        any_of_types = items.get("anyOf")
+        # if the items are objects
+        properties = items.get("properties")
+        # if the items are an array itself
+        items = items.get("items")
 
-        schema_out = []
-        for column_name, properties in self.schemas[stream]['properties'].items():
-            column_types = properties.get('type', [])
-            column_format = properties.get('format')
-
-            for any_of in properties.get('anyOf', []):
-                column_types += any_of.get('type', [])
-
-            nullable = COLUMN_TYPE_NULL in column_types
-            col_type = find(lambda x: COLUMN_TYPE_NULL != x, column_types)
-
-            # pa.long_string() is not supported by Delta Lake library as of 2022/12/12
-            column_type = pa.string()
-            column_type_df = str
-
-            if COLUMN_TYPE_ARRAY == col_type:
-                column_type = pa.list_(pa.string())
-                column_type_df = str
-            elif COLUMN_TYPE_BOOLEAN == col_type:
-                column_type = pa.bool_()
-                column_type_df = bool
-            elif COLUMN_TYPE_INTEGER == col_type:
-                column_type = pa.int64()
-                column_type_df = int
-            elif COLUMN_TYPE_NUMBER == col_type:
-                column_type = pa.float64()
-                column_type_df = float
-            elif COLUMN_TYPE_OBJECT == col_type:
-                column_type = pa.string()
-                column_type_df = str
-            elif COLUMN_TYPE_STRING == col_type and COLUMN_FORMAT_DATETIME == column_format:
-                column_type = pa.string()
-                column_type_df = str
-            elif COLUMN_TYPE_STRING == col_type:
-                column_type = pa.string()
-                column_type_df = str
-
-            non_null = df[column_name].notnull()
-            df.loc[non_null, [column_name]] = df[non_null][column_name].apply(
-                lambda x, column_type_df=column_type_df: str(column_type_df(x)),
+        if "integer" in type:
+            return pa.int64()
+        elif "number" in type:
+            return pa.float64()
+        elif "string" in type:
+            return pa.string()
+        elif "boolean" in type:
+            return pa.bool_()
+        elif "array" in type:
+            return pa.list_(self.get_schema_from_array(items=items, level=level))
+        elif "object" in type:
+            return pa.struct(
+                self.get_schema_from_object(props=properties, level=level + 1)
             )
+        else:
+            return pa.null()
 
-            if df[column_name].dropna().count() != number_of_rows:
-                df[column_name] = df[column_name].fillna('')
-                column_type = pa.string()
-                column_type_df = str
+    def get_schema_from_object(self, props: dict, level: int = 0):
+        """Returns schema for an object.
 
-            df[column_name] = df[column_name].map(column_type_df)
+        :param properties: properties definition of object
+        :type properties: dict
+        :param level: depth level of object in jsonschema
+        :type level: int
+        :return: detected fields for properties in object.
+        :rtype: pyarrow datatype
+        """
+        fields = []
+        for key, val in props.items():
+            print([f.type for f in fields])
+            if "type" in val.keys():
+                type = val["type"]
+                format = val.get("format")
+            else:
+                raise Exception("Type not found in definition")
 
-            f = pa.field(
-                name=column_name,
-                type=column_type,
-                nullable=nullable,
-                metadata={},
-            )
-            schema_out.append(f)
+            if "integer" in type:
+                fields.append(pa.field(name=key, type=pa.int64(), nullable=True))
+            elif "number" in type:
+                fields.append(pa.field(name=key, type=pa.float64(), nullable=True))
+            elif "boolean" in type:
+                fields.append(pa.field(name=key, type=pa.bool_(), nullable=True))
+            elif "string" in type:
+                    fields.append(pa.field(name=key, type=pa.string(), nullable=True))
+            elif "array" in type:
+                items = val.get("items")
+                if items:
+                    item_type = self.get_schema_from_array(items=items, level=level)
+                    if item_type == pa.null():
+                        raise Exception("Array type not found")
+                    fields.append(pa.field(key, pa.list_(item_type)))
+                else:
+                    fields.append(pa.field(key, pa.list_(pa.null())))
+            elif "object" in type:
+                child_object_prop = val.get("properties")
+                inner_fields = self.get_schema_from_object(child_object_prop, level + 1)
+                if not inner_fields:
+                    raise Exception("No fields found in object")
+                fields.append(pa.field(key, pa.struct(inner_fields)))
+                
+        return fields
 
-        schema = pa.schema(schema_out, metadata={})
+    def build_schema(self, stream: str):# -> tuple[DataFrame, Any]:
 
-        return df, schema
+        fields = self.get_schema_from_object(self.schemas[stream]['properties'])
+        schema = pa.schema(fields, metadata={})
+
+        return schema
 
     def build_storage_options(self) -> Dict:
         raise Exception('Subclasses must implement the build_storage_options method.')
@@ -158,17 +180,21 @@ class DeltaLake(BaseDestination):
         for r in record_data:
             r['record'] = update_record_with_internal_columns(r['record'])
 
-        df = pd.DataFrame([d[KEY_RECORD] for d in record_data])
-        df_count = len(df.index)
-
         # if self.disable_column_type_check.get(stream):
         #     for column_name in self.schemas[stream]['properties'].keys():
         #         df[column_name] = df[column_name].fillna('')
         #     dt, schema = delta_arrow_schema_from_pandas(df)
         #     df = dt.to_pandas()
         # else:
-
-        df, schema = self.build_schema(stream, df)
+        schema = self.build_schema(stream)
+        fields = set([property.name for property in schema])
+        mapping = {
+                    f: [row[KEY_RECORD].get(f) for row in record_data]
+                    for f in fields
+                }
+        paTable = pa.Table.from_pydict(mapping=mapping, schema=schema)
+        df = paTable.to_pandas()
+        df_count = len(df.index)
 
         idx = 0
         total_byte_size = int(df.memory_usage(deep=True).sum())
