@@ -1,0 +1,50 @@
+{
+    "type": "object",
+    "description": "Status of the bank transaction category.",
+    "properties": {
+        "id": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "description": "The unique identifier of the bank transaction category."
+        },
+        "name": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "The name of the bank transaction category."
+        },
+        "parentId": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "The unique identifier of the parent bank transaction category."
+        },
+        "hasChildren": {
+            "type": "boolean",
+            "description": "A Boolean indicating whether there are other bank transaction categories beneath this one in the hierarchy."
+        },
+        "status": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "The status of the bank transaction category."
+        },
+        "modifiedDate": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "sourceModifiedDate": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}
