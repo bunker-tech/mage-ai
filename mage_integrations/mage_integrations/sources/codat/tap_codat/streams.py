@@ -293,8 +293,6 @@ class Events(Basic):
 
 class Paginated(Basic):
     def load_data(self, ctx):
-        LOGGER.info(ctx.selected_stream_ids)
-        LOGGER.info(ctx.schema_dt_paths)
         company = ctx.cache["companies"][0]
         sync = capture_state(
             ctx,
@@ -375,6 +373,37 @@ class BankAccounts(Paginated):
                         break
                     page += 1
 
+class PaginatedWithConnectionId(Paginated):
+    def sync_for_company(self, ctx, company):
+        with capture_state(
+            ctx,
+            self.tap_stream_id,
+            self.state_filter,
+            company['id']
+        ) as sync:
+            for conn in company.get('dataConnections', []):
+                connId = conn.get('id')
+                if not connId:
+                    continue
+                path = self.path.format(companyId=company["id"], connectionId=connId)
+                page = 1
+                while True:
+                    LOGGER.info("Syncing page {} for {} stream (company={}, conn={})".format(
+                        page,
+                        self.tap_stream_id,
+                        company['id'],
+                        connId
+                    ))
+                    params = self.get_params(ctx, sync, page)
+                    resp = ctx.client.GET({"path": path, "params": params}, self.tap_stream_id)
+                    records = self.transform_dts(ctx, self.format_response(resp, company, {
+                        "connectionId": connId
+                    }))
+                    sync.update(records)
+                    self.write_records(records)
+                    if len(records) < PAGE_SIZE:
+                        break
+                    page += 1
 
 class Financials(Basic):
     def sync_for_company(self, ctx, company):
@@ -439,7 +468,7 @@ def trunc_payment_allocation_notes(invoices):
 companies = Companies("companies", ["id"], "/companies")
 company = CompanyInfo("company_info",
           ["companyId"],
-          "/companies/{companyId}/data/info",
+          "/companies/{companyId}",
           returns_collection=False)
 all_streams = [
     Paginated("accounts",
@@ -513,6 +542,21 @@ all_streams = [
               "/companies/{companyId}/data/journalEntries",
               collection_key="results",
               state_filter="modifiedDate"),
+    PaginatedWithConnectionId("direct_incomes",
+        ["id", "companyId", "connectionId"],
+        "/companies/{companyId}/connections/{connectionId}/data/directIncomes",
+        collection_key="results", 
+        state_filter="modifiedDate"),
+    PaginatedWithConnectionId("direct_costs",
+        ["id", "companyId", "connectionId"],
+        "/companies/{companyId}/connections/{connectionId}/data/directCosts",
+        collection_key="results", 
+        state_filter="modifiedDate"),
+    Paginated("tracking_categories",
+        ["id", "companyId"],
+        "/companies/{companyId}/data/trackingCategories",
+        collection_key="results", 
+        state_filter="modifiedDate"),
     Paginated("items",
               ["id", "companyId"],
               "/companies/{companyId}/data/items",
