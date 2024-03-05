@@ -98,22 +98,30 @@
                     "tracking": {
                         "type": [
                             "null",
-                            "array"
+                            "object"
                         ],
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "id": {
-                                    "type": [
-                                        "null",
-                                        "string"
-                                    ]
-                                },
-                                "dataType": {
-                                    "type": [
-                                        "null",
-                                        "string"
-                                    ]
+                        "properties": {
+                            "recordRef": {
+                                "type": [
+                                    "null",
+                                    "array"
+                                ],
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "dataType": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        }
+                                    }
                                 }
                             }
                         }
