@@ -1,0 +1,246 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "Identifier of the direct income, unique for the company."
+        },
+        "reference": {
+            "type": "string",
+            "nullable": true,
+            "description": "User-friendly reference for the direct income."
+        },
+        "note": {
+            "type": "string",
+            "nullable": true,
+            "description": "An optional note on the direct income that can be used to assign the direct income with a reference ID in your application."
+        },
+        "contactRef": {
+            "type": [
+                "null",
+                "object"
+            ],
+            "description": "A customer or supplier associated with the direct income.",
+            "properties": {
+                "id": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "dataType": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
+            }
+        },
+        "issueDate": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date-time"
+        },
+        "currency": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "currencyRate": {
+            "type": [
+                "null",
+                "number"
+            ]
+        },
+        "lineItems": {
+            "type": "array",
+            "description": "An array of line items.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": [
+                            "null",
+                            "string"
+                        ],
+                        "description": "A user-friendly name of the goods or services."
+                    },
+                    "unitAmount": {
+                        "type": "number",
+                        "format": "decimal",
+                        "description": "The price of each unit of goods or services.\nNote: If the platform does not provide this information, the unit amount will be mapped to the total amount."
+                    },
+                    "quantity": {
+                        "type": "number",
+                        "format": "decimal",
+                        "description": "The number of units of goods or services received.\n\nNote: If the platform does not provide this information, the quantity will be mapped as 1."
+                    },
+                    "discountAmount": {
+                        "type": "number",
+                        "format": "decimal",
+                        "nullable": true,
+                        "description": "Discount amount for the line before tax."
+                    },
+                    "discountPercentage": {
+                        "type": [
+                            "null",
+                            "number"
+                        ],
+                        "description": "Discount percentage for the line before tax."
+                    },
+                    "subTotal": {
+                        "type": [
+                            "null",
+                            "number"
+                        ],
+                        "description": "The amount of the line, inclusive of discounts, but exclusive of tax."
+                    },
+                    "taxAmount": {
+                        "type": [
+                            "null",
+                            "number"
+                        ],
+                        "description": "The amount of tax for the line.\nNote: If the platform does not provide this information, the quantity will be mapped as 0.00."
+                    },
+                    "totalAmount": {
+                        "type": [
+                            "null",
+                            "number"
+                        ],
+                        "description": "The total amount of the line, including tax."
+                    },
+                    "accountRef": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "name": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        }
+                    },
+                    "taxRateRef": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "name": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "effectiveTaxRate": {
+                                "type": [
+                                    "null",
+                                    "number"
+                                ],
+                                "format": "decimal"
+                            }
+                        }
+                    },
+                    "itemRef": {
+                        "type": [
+                            "null",
+                            "object"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "name": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        }
+                    },
+                    "trackingCategoryRefs": {
+                        "type": [
+                            "null",
+                            "array"
+                        ],
+                        "description": "An array of categories against which this direct cost is tracked.",
+                        "items": {
+                            "type": [
+                                "null",
+                                "object"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "name": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "subTotal": {
+            "type": "number",
+            "format": "decimal",
+            "description": "The total amount of the direct incomes, excluding any taxes."
+        },
+        "taxAmount": {
+            "type": "number",
+            "format": "decimal",
+            "description": "The total amount of tax on the direct incomes."
+        },
+        "totalAmount": {
+            "type": "number",
+            "format": "decimal",
+            "description": "The amount of the direct incomes, inclusive of tax."
+        }
+    },
+    "modifiedDate": {
+        "type": [
+            "null",
+            "string"
+        ]
+    },
+    "sourceModifiedDate": {
+        "type": [
+            "null",
+            "string"
+        ]
+    },
+    "connectionId": {
+        "type": [
+            "null",
+            "string"
+        ]
+    }
+}
