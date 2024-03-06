@@ -56,7 +56,10 @@
             ]
         },
         "lineItems": {
-            "type": "array",
+            "type": [
+                "null",
+                "array"
+            ],
             "description": "An array of line items.",
             "items": {
                 "type": "object",
