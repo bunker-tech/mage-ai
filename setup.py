@@ -70,7 +70,7 @@ setuptools.setup(
             'dbt-spark==1.7.1',
             'dbt-sqlserver==1.3.1',
             'dbt-trino==1.7.1',
-            'dbt-databricks==1.7.8'
+            'dbt-databricks==1.7.8',
             'trino~=0.326',
         ],
         'google-cloud-storage': ['google-cloud-storage==2.5.0'],
