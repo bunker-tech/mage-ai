@@ -42,9 +42,9 @@ RUN \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/dbt-synapse.git#egg=dbt-synapse" && \
   pip3 install --no-cache-dir "git+https://github.com/mage-ai/sqlglot#egg=sqlglot" && \
   if [ -z "$FEATURE_BRANCH" ] || [ "$FEATURE_BRANCH" = "null" ]; then \
-    pip3 install --no-cache-dir "git+https://github.com/mage-ai/mage-ai.git#egg=mage-integrations&subdirectory=mage_integrations"; \
+    pip3 install --no-cache-dir "git+https://github.com/bunker-tech/mage-ai.git#egg=mage-integrations&subdirectory=mage_integrations"; \
   else \
-    pip3 install --no-cache-dir "git+https://github.com/mage-ai/mage-ai.git@$FEATURE_BRANCH#egg=mage-integrations&subdirectory=mage_integrations"; \
+    pip3 install --no-cache-dir "git+https://github.com/bunker-tech/mage-ai.git@$FEATURE_BRANCH#egg=mage-integrations&subdirectory=mage_integrations"; \
   fi
 
 # Mage
@@ -54,7 +54,7 @@ RUN if [ -z "$FEATURE_BRANCH" ] || [ "$FEATURE_BRANCH" = "null" ] ; then \
       VERSION=$(echo "$tag" | tr -d "'") && \
       pip3 install --no-cache-dir "mage-ai[all]==$VERSION"; \
     else \
-      pip3 install --no-cache-dir "git+https://github.com/mage-ai/mage-ai.git@$FEATURE_BRANCH#egg=mage-ai[all]"; \
+      pip3 install --no-cache-dir "git+https://github.com/bunker-tech/mage-ai.git@$FEATURE_BRANCH#egg=mage-ai[all]"; \
     fi
 
 
