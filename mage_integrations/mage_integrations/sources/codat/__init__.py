@@ -41,7 +41,6 @@ class Codat(Source):
         for stream in streams:
             load_and_write_schema(self.ctx, stream)
             stream.sync(self.ctx)
-        self.ctx.write_state()
 
     def test_connection(self) -> None:
         return check_credentials_are_authorized(self.ctx)
