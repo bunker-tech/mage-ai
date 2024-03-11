@@ -4,9 +4,11 @@
     "object"
   ],
   "properties": {
-   "companyId": {
-     "type": "string"
-   },
+    "companyId": {
+      "type": [
+        "string"
+      ]
+    },
     "id": {
       "type": [
         "string"
