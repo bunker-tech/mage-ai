@@ -1,25 +1,39 @@
 {
-    "type": "object",
+    "type": [
+        "object"
+    ],
     "properties": {
         "accountRef": {
-            "type": "object",
+            "type": [
+                "object"
+            ],
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": [
+                        "string"
+                    ]
                 },
                 "name": {
-                    "type": "string"
+                    "type": [
+                        "string"
+                    ]
                 }
             }
         },
         "suggested": {
-            "type": "object",
+            "type": [
+                "object"
+            ],
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": [
+                        "string"
+                    ]
                 },
                 "levels": {
-                    "type": "array",
+                    "type": [
+                        "array"
+                    ],
                     "items": {
                         "type": [
                             "string",
@@ -28,7 +42,9 @@
                     }
                 },
                 "confidences": {
-                    "type": "array",
+                    "type": [
+                        "array"
+                    ],
                     "items": {
                         "type": [
                             "number",
@@ -39,13 +55,19 @@
             }
         },
         "confirmed": {
-            "type": "object",
+            "type": [
+                "object"
+            ],
             "properties": {
                 "id": {
-                    "type": "string"
+                    "type": [
+                        "string"
+                    ]
                 },
                 "levels": {
-                    "type": "array",
+                    "type": [
+                        "array"
+                    ],
                     "items": {
                         "type": [
                             "string",

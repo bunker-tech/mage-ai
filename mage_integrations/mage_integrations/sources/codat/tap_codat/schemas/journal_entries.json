@@ -1,11 +1,17 @@
 {
-    "type": "object",
+    "type": [
+        "object"
+    ],
     "properties": {
         "companyId": {
-            "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "id": {
-            "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "postedOn": {
             "type": [
@@ -57,7 +63,9 @@
                 "array"
             ],
             "items": {
-                "type": "object",
+                "type": [
+                    "object"
+                ],
                 "properties": {
                     "id": {
                         "type": [
@@ -107,7 +115,9 @@
                                     "array"
                                 ],
                                 "items": {
-                                    "type": "object",
+                                    "type": [
+                                        "object"
+                                    ],
                                     "properties": {
                                         "id": {
                                             "type": [
