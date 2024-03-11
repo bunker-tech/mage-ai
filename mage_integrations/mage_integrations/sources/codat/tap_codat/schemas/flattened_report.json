@@ -4,21 +4,32 @@
     "array"
   ],
   "items": {
-    "type": "object",
+    "type": [
+      "object"
+    ],
     "properties": {
       "accountId": {
-        "type": ["string", "null"]
+        "type": [
+          "string",
+          "null"
+        ]
       },
       "name": {
-        "type": "string"
+        "type": [
+          "string"
+        ]
       },
       "value": {
-        "type": "number"
+        "type": [
+          "number"
+        ]
       }
     },
     "patternProperties": {
       "name_\\d+": {
-        "type": "string"
+        "type": [
+          "string"
+        ]
       }
     },
     "additionalProperties": true
