@@ -1,5 +1,7 @@
 {
-    "type": "object",
+    "type": [
+        "object"
+    ],
     "properties": {
         "id": {
             "type": [
@@ -71,7 +73,9 @@
             ],
             "description": "An array of line items.",
             "items": {
-                "type": "object",
+                "type": [
+                    "object"
+                ],
                 "properties": {
                     "description": {
                         "type": [

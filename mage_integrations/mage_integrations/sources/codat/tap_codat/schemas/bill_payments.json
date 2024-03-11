@@ -1,48 +1,88 @@
 {
-    "type": "object",
+    "type": [
+        "object"
+    ],
     "properties": {
         "companyId": {
-          "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "id": {
-            "type": ["string"]
+            "type": [
+                "string"
+            ]
         },
         "supplierRef": {
-          "$ref": "suppliers"
+            "$ref": "suppliers"
         },
         "totalAmount": {
-            "type": ["null", "number"]
+            "type": [
+                "null",
+                "number"
+            ]
         },
         "currency": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "currencyRate": {
-            "type": ["null", "number"]
+            "type": [
+                "null",
+                "number"
+            ]
         },
         "date": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "note": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "lines": {
-            "type": ["null", "array"],
+            "type": [
+                "null",
+                "array"
+            ],
             "items": {
-                "type": ["object"],
+                "type": [
+                    "object"
+                ],
                 "properties": {
                     "amount": {
-                        "type": ["null", "number"]
+                        "type": [
+                            "null",
+                            "number"
+                        ]
                     },
                     "links": {
-                        "type": ["null", "array"],
+                        "type": [
+                            "null",
+                            "array"
+                        ],
                         "items": {
-                            "type": "object",
+                            "type": [
+                                "object"
+                            ],
                             "properties": {
                                 "type": {
-                                    "type": ["null", "string"]
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
                                 },
                                 "id": {
-                                    "type": ["null", "string"]
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
                                 }
                             }
                         }
@@ -51,10 +91,16 @@
             }
         },
         "modifiedDate": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "sourceModifiedDate": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         }
     },
     "tap_schema_dependencies": [
