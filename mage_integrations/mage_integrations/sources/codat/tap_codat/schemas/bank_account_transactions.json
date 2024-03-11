@@ -1,38 +1,70 @@
 {
-    "type": "object",
+    "type": [
+        "object"
+    ],
     "properties": {
         "companyId": {
-          "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "bankAccountId": {
-            "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "_transactionIndex": {
-            "type": "integer"
+            "type": [
+                "integer"
+            ]
         },
         "date": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "description": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "reconciled": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "amount": {
-            "type": ["null", "number"]
+            "type": [
+                "null",
+                "number"
+            ]
         },
         "balance": {
-            "type": ["null", "number"]
+            "type": [
+                "null",
+                "number"
+            ]
         },
         "transactionType": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "modifiedDate": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "sourceModifiedDate": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         }
     }
 }

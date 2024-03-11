@@ -1,17 +1,25 @@
 {
-    "type": "object",
+    "type": [
+        "object"
+    ],
     "properties": {
         "id": {
-            "type": "string",
+            "type": [
+                "string"
+            ],
             "description": "Identifier of the direct income, unique for the company."
         },
         "reference": {
-            "type": "string",
+            "type": [
+                "string"
+            ],
             "nullable": true,
             "description": "User-friendly reference for the direct income."
         },
         "note": {
-            "type": "string",
+            "type": [
+                "string"
+            ],
             "nullable": true,
             "description": "An optional note on the direct income that can be used to assign the direct income with a reference ID in your application."
         },
@@ -62,7 +70,9 @@
             ],
             "description": "An array of line items.",
             "items": {
-                "type": "object",
+                "type": [
+                    "object"
+                ],
                 "properties": {
                     "description": {
                         "type": [
@@ -72,17 +82,23 @@
                         "description": "A user-friendly name of the goods or services."
                     },
                     "unitAmount": {
-                        "type": "number",
+                        "type": [
+                            "number"
+                        ],
                         "format": "decimal",
                         "description": "The price of each unit of goods or services.\nNote: If the platform does not provide this information, the unit amount will be mapped to the total amount."
                     },
                     "quantity": {
-                        "type": "number",
+                        "type": [
+                            "number"
+                        ],
                         "format": "decimal",
                         "description": "The number of units of goods or services received.\n\nNote: If the platform does not provide this information, the quantity will be mapped as 1."
                     },
                     "discountAmount": {
-                        "type": "number",
+                        "type": [
+                            "number"
+                        ],
                         "format": "decimal",
                         "nullable": true,
                         "description": "Discount amount for the line before tax."
@@ -213,17 +229,23 @@
             }
         },
         "subTotal": {
-            "type": "number",
+            "type": [
+                "number"
+            ],
             "format": "decimal",
             "description": "The total amount of the direct incomes, excluding any taxes."
         },
         "taxAmount": {
-            "type": "number",
+            "type": [
+                "number"
+            ],
             "format": "decimal",
             "description": "The total amount of tax on the direct incomes."
         },
         "totalAmount": {
-            "type": "number",
+            "type": [
+                "number"
+            ],
             "format": "decimal",
             "description": "The amount of the direct incomes, inclusive of tax."
         }

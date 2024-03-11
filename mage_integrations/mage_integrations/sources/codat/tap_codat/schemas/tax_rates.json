@@ -1,43 +1,78 @@
 {
-    "type": "object",
+    "type": [
+        "object"
+    ],
     "properties": {
         "companyId": {
-            "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "id": {
-            "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "name": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "code": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "effectiveTaxRate": {
-            "type": ["null", "number"]
+            "type": [
+                "null",
+                "number"
+            ]
         },
         "totalTaxRate": {
-            "type": ["null", "number"]
+            "type": [
+                "null",
+                "number"
+            ]
         },
         "components": {
-            "type": ["null", "array"],
+            "type": [
+                "null",
+                "array"
+            ],
             "items": {
-                "type": ["object"],
+                "type": [
+                    "object"
+                ],
                 "properties": {
                     "name": {
-                        "type": ["null", "string"]
+                        "type": [
+                            "null",
+                            "string"
+                        ]
                     },
                     "rate": {
-                        "type": ["null", "number"]
+                        "type": [
+                            "null",
+                            "number"
+                        ]
                     },
                     "isCompound": {
-                        "type": ["null", "boolean"]
+                        "type": [
+                            "null",
+                            "boolean"
+                        ]
                     }
                 }
             }
         },
         "modifiedDate": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         }
     }
 }

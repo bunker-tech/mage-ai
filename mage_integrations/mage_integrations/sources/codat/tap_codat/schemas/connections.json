@@ -1,26 +1,47 @@
 {
-    "type": "object",
+    "type": [
+        "object"
+    ],
     "properties": {
         "companyId": {
-          "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "id": {
-            "type": "string"
+            "type": [
+                "string"
+            ]
         },
         "integrationId": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "sourceId": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "platformName": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "linkUrl": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "status": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         }
     }
 }
