@@ -55,6 +55,12 @@
         "string"
       ]
     },
+    "currencyRate": {
+      "type": [
+        "null",
+        "number"
+      ]
+    },
     "amountDue": {
       "type": [
         "null",
@@ -90,6 +96,13 @@
       ]
     },
     "modifiedDate": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
+    "sourceModifiedDate": {
       "type": [
         "null",
         "string"
