@@ -90,6 +90,19 @@
                 "null",
                 "string"
             ]
+        },
+        "metadata": {
+            "type": [
+              "object"
+            ],
+            "properties": {
+                "isDeleted": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                }
+            }
         }
     }
 }
