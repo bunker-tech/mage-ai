@@ -108,5 +108,18 @@
       "additionalProperties": true
     }
   },
+  "metadata": {
+    "type": [
+      "object"
+    ],
+    "properties": {
+      "isDeleted": {
+        "type": [
+          "null",
+          "boolean"
+        ]
+      }
+    }
+  },
   "additionalProperties": true
 }

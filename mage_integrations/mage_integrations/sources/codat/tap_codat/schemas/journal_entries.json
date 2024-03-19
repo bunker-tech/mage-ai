@@ -57,6 +57,19 @@
                 }
             }
         },
+        "metadata": {
+            "type": [
+              "object"
+            ],
+            "properties": {
+              "isDeleted": {
+                "type": [
+                  "null",
+                  "boolean"
+                ]
+              }
+            }
+          },
         "journalLines": {
             "type": [
                 "null",
