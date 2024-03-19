@@ -72,6 +72,19 @@
         "number"
       ]
     },
+    "metadata": {
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "isDeleted": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        }
+      }
+    },
     "lineItems": {
       "type": [
         "null",
