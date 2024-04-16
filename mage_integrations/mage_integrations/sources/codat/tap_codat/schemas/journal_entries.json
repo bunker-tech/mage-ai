@@ -122,7 +122,7 @@
                             "object"
                         ],
                         "properties": {
-                            "recordRef": {
+                            "recordRefs": {
                                 "type": [
                                     "null",
                                     "array"
