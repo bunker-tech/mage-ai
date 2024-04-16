@@ -189,17 +189,110 @@
         "string"
       ]
     },
-    "metadata": {
+    "tracking": {
       "type": [
+        "null",
         "object"
       ],
       "properties": {
-        "isDeleted": {
+        "categoryRefs": {
           "type": [
             "null",
-            "boolean"
-          ]
+            "array"
+          ],
+          "items": {
+            "type": [
+              "object"
+            ],
+            "properties": {
+              "id": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "name": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "customerRef": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "companyName": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "projectRef": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "name": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "recordRef": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "dataType": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
         }
+      }
+    }
+  },
+  "metadata": {
+    "type": [
+      "object"
+    ],
+    "properties": {
+      "isDeleted": {
+        "type": [
+          "null",
+          "boolean"
+        ]
       }
     }
   },
