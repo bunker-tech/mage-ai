@@ -530,7 +530,7 @@ all_streams = [
     Basic("connections",
           ["id", "companyId"],
           "/companies/{companyId}/connections",
-          returns_collection=False),
+          collection_key="results"),
     Paginated("bill_payments",
               ["id", "companyId"],
               "/companies/{companyId}/data/billpayments",
