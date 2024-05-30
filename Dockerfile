@@ -11,14 +11,13 @@ RUN \
   curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
   apt-get -y update && \
   ACCEPT_EULA=Y apt-get -y install --no-install-recommends \
-  # NFS dependencies
-  nfs-common \
-  # odbc dependencies
-  msodbcsql18\
-  unixodbc-dev \
-  graphviz \
-  # R
-  r-base && \
+    # NFS dependencies
+    nfs-common \
+    # odbc dependencies
+    msodbcsql18\
+    unixodbc-dev \
+    # R
+    r-base && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
@@ -26,7 +25,6 @@ RUN \
 RUN \
   R -e "install.packages('pacman', repos='http://cran.us.r-project.org')" && \
   R -e "install.packages('renv', repos='http://cran.us.r-project.org')"
-
 
 ## Python Packages
 RUN \
